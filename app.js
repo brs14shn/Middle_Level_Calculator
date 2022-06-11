@@ -12,6 +12,7 @@ const btnContainer = document.querySelector('.buttons-container');
 let currOperand = '';
 let previousOperand = '';
 let operation = '';
+let equalOrPercentpresend=false;
 
 //? Butonlari tasiyan container icin event tanimlamasi
 btnContainer.addEventListener('click', (e) => {
@@ -30,6 +31,7 @@ btnContainer.addEventListener('click', (e) => {
   if (e.target.classList.contains('equal')) {
     calculate();
     updateDisplay();
+    equalOrPercentpresend=true;
   }
   //? AC butonuna tiklanildi ise
   if (e.target.classList.contains('ac')) {
@@ -51,6 +53,8 @@ btnContainer.addEventListener('click', (e) => {
     if (!currOperand) return;
     currOperand = currOperand / 100;
     updateDisplay();
+    equalOrPercentpresend=true;
+
   }
 });
 
@@ -71,6 +75,10 @@ const appendNumber = (num) => {
   if (num === '.' && currOperand.includes('.')) return;
 
   if (currOperand.length > 10) return;
+  if(equalOrPercentpresend){
+    currOperand=num
+    equalOrPercentpresend=false
+return}
   //? Girilen sayilari birlestir.
   currOperand += num;
 };
@@ -82,7 +90,7 @@ const updateDisplay = () => {
     currDisp.textContent = currOperand;
     prevDisp.textContent = `${previousOperand} ${operation}`;
   };
-  
+
 const chooseOperator = (op) => {
   //? ilk sayi girisiinden sonraki islemleri gercekletir
   if (previousOperand) {
@@ -125,5 +133,58 @@ const calculate = () => {
   previousOperand = '';
   operation = '';
 };
+
+
+
+
+
+//
+window.addEventListener('keydown', (e) => {
+    if(e.key === '0' ||
+     e.key === '1' ||
+     e.key === '2' ||
+     e.key === '3' ||
+     e.key === '4' ||
+     e.key === '5' ||
+     e.key === '6' ||
+     e.key === '7' ||
+     e.key === '8' ||
+     e.key === '9' ||
+     e.key === '.'){
+         clickButtonEl(e.key)
+     }else if (
+         
+         e.key === '+' ||
+         e.key === '-' ||
+         e.key === '/' ||
+         e.key === '%'
+     ){
+         clickOperation(e.key);
+     }else if (e.key === '*'){
+         clickOperation('x')
+     }else if (e.key == 'Enter' || e.key === '='){
+         clickEqual('')
+     }
+ })
+ 
+ function clickButtonEl(key){
+     numbersEl.forEach(button => {
+         if(button.innerText === key){
+             button.click();
+         }
+     })
+ }
+ 
+ function clickOperation(key) {
+     operationEl.forEach(button => {
+         if(button.innerText === key){
+             button.click()
+         }
+     })
+ }
+ 
+ function clickEqual(){
+     equalEl.click();
+ }
 
 
