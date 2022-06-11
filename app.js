@@ -22,9 +22,15 @@ btnContainer.addEventListener("click",(e)=>{
 });
 
 const appendNumber=(num)=>{
+    if(currOperand.includes("0") && num==="0") return;
     currOperand=num;
 }
+
+
+
+
+
 const updateDisplay=()=>{
-    currDisp.textContent=currOperand
+    currDisp.textContent+=currOperand
 
 }
