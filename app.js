@@ -138,7 +138,7 @@ const calculate = () => {
 
 
 
-//
+/* will updated
 window.addEventListener('keydown', (e) => {
     if(e.key === '0' ||
      e.key === '1' ||
@@ -187,4 +187,4 @@ window.addEventListener('keydown', (e) => {
      equalEl.click();
  }
 
-
+*/
