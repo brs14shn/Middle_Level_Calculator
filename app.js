@@ -1,36 +1,34 @@
-//* ======================================================
+//* =================================================
 //*                     IOS CALCULATOR
-//* ======================================================
-const prevDisp=document.querySelector(".previous-display")
+//* =================================================
+const prevDisp = document.querySelector('.previous-display');
+const currDisp = document.querySelector('.current-display');
 
-const currDisp =document.querySelector(".current-display");
-const btnContainer=document.querySelector(".buttons-container");
+const btnContainer = document.querySelector('.buttons-container');
 
-let currOperand="";
-let previousOperand="";
+let currOperand = '';
+let previousOperand = '';
 
-//* CAPTURİNG
-// ? butonları taşıyan container için event tanımlaması
-
-btnContainer.addEventListener("click",(e)=>{
-   //console.log(e.target);
-   if(e.target.classList.contains("num")){
-    appendNumber(e.target.textContent)
-    updateDisplay()
-   }
-
+//? Butonlari tasiyan container icin event tanimlamasi
+btnContainer.addEventListener('click', (e) => {
+  if (e.target.classList.contains('num')) {
+    appendNumber(e.target.textContent);
+    updateDisplay();
+  }
 });
 
-const appendNumber=(num)=>{
-    if(currOperand.includes("0") && num==="0") return;
-    currOperand=num;
-}
+const appendNumber = (num) => {
+  //? Eger ilk olarak  0 girilmisse geri don
+  if (!currOperand && num === '0') return;
 
+  //? Eğer şu anki sayi . ise ve önceki girilen sayi . iceriyorsa geri don
+  if (num === '.' && currOperand.includes('.')) return;
 
+  //? Girilen sayilari birlestir.
+  currOperand += num;
+};
 
+const updateDisplay = () => {
+  currDisp.textContent = currOperand;
+};
 
-
-const updateDisplay=()=>{
-    currDisp.textContent+=currOperand
-
-}
